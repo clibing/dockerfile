@@ -11,6 +11,11 @@ vi ~/.docker/config.json
     "debug":"true",
     "experimental" : "enabled"
 }
+
+or
+
+export DOCKER_CLI_EXPERIMENTAL=enabled
+
 ```
 
 ### demo
