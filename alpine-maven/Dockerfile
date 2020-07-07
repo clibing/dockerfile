@@ -24,7 +24,7 @@ RUN apk add --no-cache tar unzip \
                 ${MAVEN_HOME}/bin/*.bat \
                 /tmp/*
 
-COPY settings.xml ${MAVEN_HOME}/conf/settings.xml
+COPY ./settings.xml ${MAVEN_HOME}/conf/settings.xml
 
 VOLUME /data/repo
 

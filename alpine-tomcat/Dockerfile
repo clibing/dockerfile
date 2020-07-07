@@ -1,0 +1,76 @@
+ARG JDK_TYPE=alpine-openjdk
+
+ARG JDK_VERSION="latest"
+
+FROM clibing/${JDK_TYPE}:${JDK_VERSION}
+
+LABEL maintainer="liuboxun <wmsjhappy@gmail.com>"
+
+ARG TOMCAT_VERSION=8.5.38
+ARG APR_VERSION=1.7.0
+
+ENV TOMCAT_MAJOR 8
+ENV TOMCAT_VERSION ${TOMCAT_VERSION:-8.5.38}
+ENV CATALINA_HOME /usr/local/tomcat
+ENV PATH $CATALINA_HOME/bin:$PATH
+ENV TOMCAT_NATIVE_LIBDIR $CATALINA_HOME/native-jni-lib
+ENV LD_LIBRARY_PATH ${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$TOMCAT_NATIVE_LIBDIR
+
+ENV TOMCAT_TGZ_URL http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-${TOMCAT_MAJOR}/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+# ENV TOMCAT_TGZ_URL https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR}/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+
+RUN apk add --no-cache --virtual .build-deps \
+        ca-certificates \
+        tar \
+        openssl \
+        openssl-dev \
+        apr-dev \
+        coreutils \
+        dpkg-dev dpkg \
+        gcc \
+        libc-dev \
+        make \
+    && mkdir -p ${CATALINA_HOME} \
+    && wget -O tomcat.tar.gz ${TOMCAT_TGZ_URL} \
+    && tar -xvf tomcat.tar.gz -C ${CATALINA_HOME} --strip-components=1 \
+    && nativeBuildDir=$(mktemp -d) \
+    && tar -xvf ${CATALINA_HOME}/bin/tomcat-native.tar.gz -C ${nativeBuildDir} --strip-components=1 \
+    && ( cd ${nativeBuildDir}/native \
+    && gnuArch=$(dpkg-architecture --query DEB_BUILD_GNU_TYPE) \
+    && ./configure \
+        --build=${gnuArch} \
+        --libdir=${TOMCAT_NATIVE_LIBDIR} \
+        --prefix=${CATALINA_HOME} \
+        --with-apr=$(which apr-1-config) \
+        --with-java-home=${JAVA_HOME} \
+        --with-ssl=yes \
+    && make -j $(nproc) \
+    && make install) 
+
+RUN apk add --no-cache apr 
+
+# RUN runDeps=$( \
+#         scanelf --needed --nobanner --recursive ${TOMCAT_NATIVE_LIBDIR} \
+#             | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
+#             | sort -u \
+#             | xargs -r apk info --installed \
+#             | sort -u \
+#         ) \
+#     && apk add --virtual bash ${runDeps} \
+#     && nativeLines=$(catalina.sh configtest 2>&1) \
+#     && nativeLines=$(echo ${nativeLines} | grep 'Apache Tomcat Native') \
+#     && nativeLines=$(echo ${nativeLines} | sort -u) \
+#     && if ! echo ${nativeLines} | grep 'INFO: Loaded APR based Apache Tomcat Native library' >&2; then \
+#            echo >&2 ${nativeLines}; \
+#            exit 1; \
+#        fi 
+
+RUN apk del .build-deps \
+    && rm -rf   ${CATALINA_HOME}/bin/*.bat \
+                ${CATALINA_HOME}/bin/tomcat-native.tar.gz \
+                ${CATALINA_HOME}/webapps/* \
+                tomcat.tar.gz 
+
+EXPOSE 8080 8443
+
+CMD ["catalina.sh", "run"] 
