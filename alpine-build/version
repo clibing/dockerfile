@@ -1,0 +1,4 @@
+# project name and proejct dir is same
+export PROJECT_NAME="alpine-build"
+export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
+export MAVEN_VERSION=3.6.3
