@@ -1,0 +1,18 @@
+.:53 {
+    cache 300
+    hosts /etc/coredns/core.hosts {
+        ttl 60
+        reload 1m
+    	fallthrough
+    }
+
+    health
+
+    forward . 114.114.114.114 8.8.8.8 9.9.9.9
+
+    reload 6s
+
+    errors
+
+    log . "{remote} - [{when}] {>id} {type} {class} {name} {proto} {size} {>do} {>bufsize} {rcode} {>rflags} {rsize} {duration}"
+}
