@@ -4,6 +4,7 @@ LABEL maintainer="clibing <wmsjhappy@gmail.com>"
 
 ARG COREDNS_VERSION=1.7.0
 
+
 RUN set -ex \
     && addgroup coredns \
     && adduser -S -G coredns coredns \
@@ -14,9 +15,8 @@ RUN set -ex \
         outils-sha256 \
         openssl \
         dpkg \
-        tar
-
-RUN KERNEL_NAME=$(uname -s | awk '{print tolower($0)}') \
+        tar \
+    && KERNEL_NAME=$(uname -s | awk '{print tolower($0)}') \
     && echo "----------->>>> KERNEL_NAME: $KERNEL_NAME" \
     && HARDWARE_NAME=$(uname -m) \
     && COREDNS_PLATFORM=$([[ $HARDWARE_NAME = "aarch64" ]] && echo 'arm64' || ([[ $HARDWARE_NAME = "x86_64" ]] && echo 'amd64' || echo 'arm')) \
@@ -28,11 +28,10 @@ RUN KERNEL_NAME=$(uname -s | awk '{print tolower($0)}') \
     && tar -zxf coredns.tar.gz \
     && mv coredns /usr/bin/ \
     && mkdir -p /etc/coredns \
+    && apk del .fetch-deps \
+    && rm -rf coredns.tar.gz coredns.tar.gz.asc
 
 RUN apk add drill
-
-RUN apk del .fetch-deps \
-    && rm -rf coredns.tar.gz coredns.tar.gz.asc
 
 ADD Corefile /etc/coredns/
 
@@ -42,6 +41,6 @@ RUN chown -R coredns /etc/coredns /usr/bin/coredns
 
 EXPOSE 53/udp
 
-CMD ["/usr/bin/coredns", "-conf /etc/coredns/Corefile"]
+CMD ["/usr/bin/coredns", "-conf", "/etc/coredns/Corefile"]
 
 
