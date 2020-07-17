@@ -13,14 +13,3 @@ echo "begin build base alpine."
 docker buildx build --platform=${TARGET_PLATFORM} --build-arg ALPINE_VERSION=${ALPINE_VERSION} -t ${IMAGE_BASE_NAME}:${ALPINE_VERSION} --push -f ${PROJECT_NAME}/Dockerfile .
 docker buildx build --platform=${TARGET_PLATFORM} --build-arg ALPINE_VERSION=${ALPINE_VERSION} -t ${IMAGE_BASE_NAME}:latest --push -f ${PROJECT_NAME}/Dockerfile .
 echo "successful build base alpine."
-
-
-unset PROJECT_NAME 
-unset IMAGE_BASE_NAME
-source ./alpine-openjdk/version
-
-echo "begin build base openjdk."
-docker buildx build --platform=${TARGET_PLATFORM} --build-arg JDK_VERSION=${JDK_VERSION} -t ${IMAGE_BASE_NAME}:${JDK_VERSION}-${BUILD_VERSION} --push -f ${PROJECT_NAME}/Dockerfile .
-docker buildx build --platform=${TARGET_PLATFORM} --build-arg JDK_VERSION=${JDK_VERSION} -t ${IMAGE_BASE_NAME}:latest --push -f ${PROJECT_NAME}/Dockerfile .
-echo "successful build base openjdk."
-
