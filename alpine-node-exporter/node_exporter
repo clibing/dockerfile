@@ -1,0 +1,36 @@
+#!/sbin/openrc-run
+
+description="node_exporter"
+
+: ${NODE_PIDFILE:=/var/run/node_exporter.pid}
+: ${NODE_LOGFILE:=/var/log/node_exporter.log}
+: ${NODE_USER:=root}
+
+
+depend() {
+        need net
+        need localmount
+        use dns
+        after firewall
+}
+
+start() {
+        ebegin "Starting node_exporter"
+        start-stop-daemon --wait 1000 --background --start --exec \
+                /etc/node_exporter/node_exporter \
+                --user ${NODE_USER} \
+                --make-pidfile --pidfile ${NODE_PIDFILE} \
+                -- >> ${NODE_LOGFILE} 2>&1 \
+        && chown ${NODE_USER}:root ${NODE_PIDFILE}
+        eend $?
+}
+
+stop() {
+        ebegin "Stopping node_exporter"
+        start-stop-daemon --wait 5000 --stop --exec \
+                /etc/node_exporter/node_exporter \
+                --user ${NODE_USER} \
+                --pidfile ${NODE_PIDFILE} \
+                -s SIGQUIT
+        eend $?
+}

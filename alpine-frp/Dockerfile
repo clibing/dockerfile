@@ -21,8 +21,10 @@ ENV DOWNLOAD_URL    https://github.com/fatedier/frp/releases/download
 
 RUN set -ex \
     && apk add --no-cache pcre \
+    && KERNEL_NAME=$(uname -s | awk '{print tolower($0)}') \
+    && HARDWARE_NAME=$(uname -m) \
     && CURRENT_PLATFORM=$([[ $HARDWARE_NAME = "aarch64" ]] && echo 'arm64' || ([[ $HARDWARE_NAME = "x86_64" ]] && echo 'amd64' || echo 'arm')) \
-    && wget ${DOWNLOAD_URL}/v${FRP_VERSION}/frp_${FRP_VERSION}_linux_${CURRENT_PLATFORM}.tar.gz \   
+    && wget ${DOWNLOAD_URL}/v${FRP_VERSION}/frp_${FRP_VERSION}_${KERNEL_NAME}_${CURRENT_PLATFORM}.tar.gz \   
     && tar -xzvf frp_${FRP_VERSION}_linux_${CURRENT_PLATFORM}.tar.gz \   
     && cd frp_${FRP_VERSION}_linux_${CURRENT_PLATFORM} \   
     && [ ! -d ${FRP_HOME} ] && mkdir -p ${FRP_HOME} \

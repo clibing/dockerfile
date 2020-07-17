@@ -1,0 +1,4 @@
+# project name and proejct dir is same
+export PROJECT_NAME="alpine-node-exporter"
+export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
+export NODE_EXPORTER_VERSION=1.0.1
