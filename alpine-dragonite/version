@@ -1,0 +1,4 @@
+# project name and proejct dir is same
+export PROJECT_NAME="alpine-dragonite"
+export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
+export DRAGONITE_VERSION=0.4.0
