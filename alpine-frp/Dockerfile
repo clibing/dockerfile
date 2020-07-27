@@ -9,12 +9,12 @@ ENV FRP_HOME        "/opt/frp"
 # frps
 ENV FRPS_BIN        "${FRP_HOME}/frps"
 ENV FRPS_CONF       "${FRP_HOME}/frps_default.ini"
-ENV FRPS_LOG        "${FRP_HOME}/frps_.log"
+ENV FRPS_LOG        "${FRP_HOME}/frps.log"
 
 # frpc
 ENV FRPC_BIN        "${FRP_HOME}/frpc"
 ENV FRPC_CONF       "${FRP_HOME}/frpc_default.ini"
-ENV FRPC_LOG        "${FRP_HOME}/frpc_.log"
+ENV FRPC_LOG        "${FRP_HOME}/frpc.log"
 
 # https://github.com/fatedier/frp/releases/download/v0.33.0/frp_0.33.0_linux_386.tar.gz
 ENV DOWNLOAD_URL    https://github.com/fatedier/frp/releases/download

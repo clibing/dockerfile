@@ -54,14 +54,18 @@ server_port = ${SERVER_PORT:-5443}
 
 token = ${TOKEN:-e7047cb7b184e9ca}
 
-pool_count = ${POOL_COUNT:5}
+pool_count = ${POOL_COUNT:-5}
+
+tls_enable = ${TLS_ENABLE:-false}
 
 tcp_mux = ${TCP_MUX:-true}
 
 login_fail_exit = false
 
 log_file = ${FRPC_LOG}
+
 log_level = ${LOG_LEVEL:-info}
+
 log_max_days = ${LOG_MAX_DAYS:-3}
 
 # communication protocol used to connect to server
@@ -74,7 +78,9 @@ ${USER_CONFIG}
 EOF
 
 cat ${FRPC_CONF}
-echo "create server frpc.ini ok"
+
+echo "create server ${FRPC_CONF} ok"
+
 }
 
 
@@ -85,7 +91,7 @@ if [ "${FRP_TYPE}" = "SERVER" ];then {
     echo "Starting frps $(${FRPS_BIN} -v) ..."
     ${FRPS_BIN} -c ${FRPS_CONF} &
     sleep 0.5
-    netstat -ntlup | grep "frps"
+    # netstat -ntlup | grep "frps"
     echo "console log"
     tail -f ${FRPS_LOG}
 } elif [ "${FRP_TYPE}" = "CLIENT" ];then {
@@ -94,8 +100,8 @@ if [ "${FRP_TYPE}" = "SERVER" ];then {
     frpc_config
     echo "Starting frpc $(${FRPC_BIN} -v) ..."
     ${FRPC_BIN} -c ${FRPC_CONF} &
-    sleep 0.5
-    netstat -ntlup | grep "frpc"
+    sleep 0.8
+    # netstat -ntlup | grep "frpc"
     exec "tail" -f ${FRPC_LOG}
 } else {
     echo "select mode FRP_TYPE = 'SERVER' or 'CLIENT'"
