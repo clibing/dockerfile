@@ -8,16 +8,21 @@ ENV GITLAB_RUNNER_VERSION ${GITLAB_RUNNER_VERSION}
 
 ENV GITLAB_RUNNER_DOWNLOAD https://gitlab-runner-downloads.s3.amazonaws.com/${GITLAB_RUNNER_VERSION}/binaries/gitlab-runner-linux
 
-RUN addgroup gitlab-runner && \
-    adduser -S -G gitlab-runner gitlab-runner
+RUN apk upgrade --update \
+    && addgroup gitlab-runner \
+    && adduser -S -G gitlab-runner gitlab-runner 
 
-RUN apk update && \
-    CURRENT_PLATFORM=$([[ $HARDWARE_NAME = "aarch64" ]] && echo 'arm64' || ([[ $HARDWARE_NAME = "x86_64" ]] && echo 'amd64' || echo 'arm')) && \ 
-    wget -O "/usr/bin/gitlab-runner" "${GITLAB_RUNNER_DOWNLOAD}-${CURRENT_PLATFORM}" && \
-    chmod a+x /usr/bin/gitlab-runner && \
-    mkdir -p /etc/gitlab-runner && \
-    chmod 0700 /etc/gitlab-runner && \
-    rm -rf /var/cache/apk/*
+RUN export HARDWARE_NAME="$(uname -m)" \
+    && export CURRENT_PLATFORM="$(if [ "$HARDWARE_NAME" = "aarch64" ] ; then echo arm64 ; elif [ "$HARDWARE_NAME" = "x86_64" ] ; then echo amd64 ; else echo arm ; fi)" \
+    && echo -e "----------->>>> $CURRENT_PLATFORM \n${GITLAB_RUNNER_DOWNLOAD}-${CURRENT_PLATFORM}" \
+    && wget -O "/usr/bin/gitlab-runner" "${GITLAB_RUNNER_DOWNLOAD}-${CURRENT_PLATFORM}"
+
+RUN chmod a+x /usr/bin/gitlab-runner \
+    && mkdir -p /etc/gitlab-runner \
+    && chmod 0700 /etc/gitlab-runner \
+    8& rm -rf /var/cache/apk/*
+
+RUN chmod +x /usr/bin/gitlab-runner
 
 # Preserve runner's data
 VOLUME ["/etc/gitlab-runner", "/home/gitlab-runner"]
