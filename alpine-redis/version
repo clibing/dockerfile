@@ -1,0 +1,6 @@
+# project name and proejct dir is same
+export PROJECT_NAME="alpine-redis"
+export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
+export REDIS_VERSION="6.0.5"
+export GOSU_VERSION="1.12"
+export JEMALLOC_VERSION="5.2.1"

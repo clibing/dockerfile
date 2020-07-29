@@ -1,0 +1,10 @@
+# /etc/supervisor/conf.d
+# please look at: https://leehao.me/%E4%BD%BF%E7%94%A8-Supervisor-%E6%9D%A5%E7%AE%A1%E7%90%86-Redis-%E8%BF%9B%E7%A8%8B/
+# 
+[program:redis]
+command=/usr/local/bin/redis-server /etc/redis/redis.conf
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/supervisor/redis.err.log
+stdout_logfile=/var/log/supervisor/redis.out.log
+
