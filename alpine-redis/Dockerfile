@@ -40,6 +40,9 @@ RUN set -exo pipefail \
     && apk del .build-deps \
     && rm -rf /tmp/*
 
+RUN apk update \
+    && apk add libgcc
+
 RUN echo "echo never > /sys/kernel/mm/transparent_hugepage/enabled" >> /etc/rc.local \ 
     && echo "net.core.somaxconn = 1024" >> /etc/sysctl.conf
 
