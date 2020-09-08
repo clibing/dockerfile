@@ -43,6 +43,8 @@ RUN set -exo pipefail \
 RUN echo "echo never > /sys/kernel/mm/transparent_hugepage/enabled" >> /etc/rc.local \ 
     && echo "net.core.somaxconn = 1024" >> /etc/sysctl.conf
 
+ADD enabled /sys/kernel/mm/transparent_hugepage/
+
 WORKDIR /data
 
 VOLUME ["/data"]

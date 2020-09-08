@@ -29,6 +29,8 @@ RUN apk upgrade --update \
     && apk add nss procps iputils openjdk${JDK_VERSION} tini \
     && rm -rf /var/cache/apk/*
 
+ENV PATH=${JAVA_HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 ENTRYPOINT ["/sbin/tini","--"]
 
 CMD ["/bin/bash"]
