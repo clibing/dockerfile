@@ -15,7 +15,11 @@ vi ~/.docker/config.json
 or
 
 export DOCKER_CLI_EXPERIMENTAL=enabled
+```
 
+`auto-push is currently not implemented for docker driver` exec
+```shell
+docker buildx create --use
 ```
 
 ### demo
