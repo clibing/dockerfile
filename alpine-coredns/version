@@ -1,3 +1,3 @@
 export PROJECT_NAME="alpine-coredns"
 export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
-export COREDNS_VERSION=1.7.0
+export COREDNS_VERSION=1.8.1

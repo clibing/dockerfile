@@ -1,4 +1,4 @@
-FROM golang:alpine3.12 as builder
+FROM golang:alpine3.13 as builder
 ENV CGO_ENABLED=0
 RUN apk add --update git curl
 

@@ -1,5 +1,4 @@
 # project name and proejct dir is same
-export PROJECT_NAME="alpine-openjdk"
+export PROJECT_NAME="alpine-nexus"
 export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
-export JDK_VERSION="8"
-export BUILD_VERSION="272"
+export NEXUS_VERSION="3.29.2-02"
