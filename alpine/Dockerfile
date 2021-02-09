@@ -9,7 +9,7 @@ ENV TZ "Asia/Shanghai"
 ENV LANG="en_US.UTF-8"
 
 RUN apk upgrade --update \
-    && apk add bash tzdata curl wget \
+    && apk add bash tzdata curl wget ca-certificates \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
     && rm -rf /var/cache/apk/*
