@@ -13,8 +13,8 @@ unset IMAGE_BASE_NAME
 
 source ./version
 
-echo "begin build base apache maven."
+echo "begin build base apache tomcat."
 docker buildx build --platform=${TARGET_PLATFORM} --build-arg TOMCAT_VERSION=${TOMCAT_VERSION} -t ${IMAGE_BASE_NAME}:${TOMCAT_VERSION} --push -f Dockerfile .
 docker buildx build --platform=${TARGET_PLATFORM} --build-arg TOMCAT_VERSION=${TOMCAT_VERSION} -t ${IMAGE_BASE_NAME}:latest --push -f Dockerfile .
-echo "successful build apache maven."
+echo "successful build apache tomcat."
 

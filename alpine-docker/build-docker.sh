@@ -13,7 +13,7 @@ unset IMAGE_BASE_NAME
 
 source ./version
 
-echo "begin build base apache maven."
+echo "begin build base docker."
 docker buildx build --platform=${TARGET_PLATFORM} -t ${IMAGE_BASE_NAME}:latest --push -f Dockerfile .
-echo "successful build apache maven."
+echo "successful build docker."
 
