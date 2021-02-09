@@ -1,4 +1,5 @@
 docker-nginx/
 alpine-nginx/
 .DS_Store
+record
 */.DS_Store
