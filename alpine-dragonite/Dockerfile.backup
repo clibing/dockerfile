@@ -20,17 +20,15 @@ WORKDIR ${PROXY_HOME}
 
 # download tar from https://github.com/dragonite-network/dragonite-java/releases
 RUN apk upgrade --no-cache \
-    && apk add --no-cache tar 
-
-RUN curl -fSL ${DRAGONITE_GITHUB}/${DRAGONITE_BRANCH}/dragonite-proxy-${DRAGONITE_PROXY_VERSION}.tar -o dragonite-proxy.tar \
+    && apk add --no-cache curl tar \
+    && curl -fSL ${DRAGONITE_GITHUB}/${DRAGONITE_BRANCH}/dragonite-proxy-${DRAGONITE_PROXY_VERSION}.tar -o dragonite-proxy.tar \
     && curl -fSL ${DRAGONITE_GITHUB}/${DRAGONITE_BRANCH}/dragonite-echo-${DRAGONITE_ECHO_VERSION}.tar -o dragonite-echo.tar \
-    && curl -fSL ${DRAGONITE_GITHUB}/${DRAGONITE_BRANCH}/dragonite-forwarder-${DRAGONITE_FORWARDER_VERSION}.tar -o dragonite-forwarder.tar
-
-RUN tar -xvf dragonite-proxy.tar -C ${PROXY_HOME}/ --strip-components=1
-RUN tar -xvf dragonite-echo.tar -C ${PROXY_HOME}/ --strip-components=1
-RUN tar -xvf dragonite-forwarder.tar -C ${PROXY_HOME}/ --strip-components=1
-
-RUN rm -rf *.tar \
+    && curl -fSL ${DRAGONITE_GITHUB}/${DRAGONITE_BRANCH}/dragonite-forwarder-${DRAGONITE_FORWARDER_VERSION}.tar -o dragonite-forwarder.tar \
+    && tar -xvf dragonite-proxy.tar -C ${PROXY_HOME}/ --strip-components=1 \
+    && tar -xvf dragonite-echo.tar -C ${PROXY_HOME}/ --strip-components=1 \
+    && tar -xvf dragonite-forwarder.tar -C ${PROXY_HOME}/ --strip-components=1 \
+    && apk del tar curl \
+    && rm -rf *.tar \
     && rm -rf /var/cache/apk/*
 
 EXPOSE 152 153 156
