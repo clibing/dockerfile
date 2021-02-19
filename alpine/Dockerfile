@@ -8,8 +8,10 @@ ENV TZ "Asia/Shanghai"
 
 ENV LANG="en_US.UTF-8"
 
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
+
 RUN apk upgrade --update \
-    && apk add bash tzdata curl wget ca-certificates \
+    && apk add bash tzdata curl wget \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
     && rm -rf /var/cache/apk/*
