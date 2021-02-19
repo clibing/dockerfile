@@ -13,7 +13,7 @@ ENV GOSU_VERSION ${GOSU_VERSION:-1.12}
 
 RUN set -exo pipefail \
     && apk update \
-    && apk add --no-cache --virtual .build-deps build-base linux-headers openssl autoconf pkgconf \ 
+    && apk add --no-cache --virtual .build-deps build-base linux-headers openssl autoconf pkgconf tcl \ 
     && HARDWARE_NAME=$(uname -m) \
     && COREDNS_PLATFORM=$([[ $HARDWARE_NAME = "aarch64" ]] && echo 'arm64' || ([[ $HARDWARE_NAME = "x86_64" ]] && echo 'amd64' || echo 'armhf')) \
     && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${COREDNS_PLATFORM}" \
