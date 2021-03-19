@@ -14,16 +14,10 @@ unset IMAGE_BASE_NAME
 source ./version
 
 echo "begin build base jenkins."
-docker buildx build --platform=${TARGET_PLATFORM} \
-    -t ${IMAGE_BASE_NAME}:${VERSION} \
+docker buildx build --no-cache \
+    --platform="linux/arm64/v8" \
+    -t ${IMAGE_BASE_NAME}:${VERSION}-aarch64 \
     --build-arg MAVEN_VERSION=${MAVEN_VERSION} \
     --build-arg JENKINS_VERSION=${VERSION}  \
-    --push -f Dockerfile .
-
-docker buildx build --platform=${TARGET_PLATFORM} \
-    -t ${IMAGE_BASE_NAME}:latest  \
-    --build-arg MAVEN_VERSION=${MAVEN_VERSION} \
-    --build-arg JENKINS_VERSION=${VERSION} \
-    --push -f Dockerfile .
-echo "successful build jenkins."
+    --push -f Dockerfile.aarch64 .
 
