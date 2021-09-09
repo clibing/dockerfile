@@ -1,0 +1,14 @@
+FROM ubuntu:20.04
+
+LABEL maintainer="clibing <wmsjhappy@gmail.com>"
+
+ENV TZ "Asia/Shanghai"
+
+ENV LANG="en_US.UTF-8"
+
+RUN apt update -y \
+    && apt -qqy install bash tzdata curl wget unzip openjdk-8-jdk gnupg 
+
+# RUN ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
+
+CMD ["/bin/bash"]

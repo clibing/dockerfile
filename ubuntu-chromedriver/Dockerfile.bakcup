@@ -1,0 +1,8 @@
+FROM clibing/ubuntu-chromedirver:latest
+
+LABEL maintainer="clibing <wmsjhappy@gmail.com>"
+
+RUN apt update -y \
+    && apt -qqy install chromium-browser chromium-chromedriver 
+
+CMD ["/bin/bash"]
