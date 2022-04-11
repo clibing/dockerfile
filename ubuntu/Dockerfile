@@ -9,7 +9,7 @@ ENV TZ "Asia/Shanghai"
 ENV LANG="en_US.UTF-8"
 
 RUN apt update -y \
-    && apt -qqy install bash tzdata curl wget unzip gnupg \
+    && apt -qqy install bash tzdata curl wget unzip gnupg git\
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 RUN echo "Asia/Shanghai" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
