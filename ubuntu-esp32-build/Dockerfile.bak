@@ -1,0 +1,34 @@
+FROM clibing/alpine
+
+LABEL maintainer="clibing <wmsjhappy@gmail.com>"
+
+RUN apk upgrade --update \
+    && apk add --no-cache --virtual build-dependencies python3-dev libffi-dev openssl-dev gcc libc-dev make zip git cmake \
+    && rm -rf /var/cache/apk/*
+
+
+RUN mkdir -p /workdir/python /workdir/tools  /workdir/build
+
+RUN python3 -m venv /workdir/python \
+    && source /workdir/python/bin/activate \
+    && python3 -m ensurepip \
+    && python3 -m pip install --upgrade pip 
+
+
+ADD ./tools/* /workdir/tools/
+
+RUN cd /workdir/tools && unzip *.zip && rm -rf *.zip
+
+ENV IDF_PATH "/workdir/tools/esp-idf-v4.4"
+
+ENV PATH "/workdir/tools/xtensa-esp32-elf/bin:${IDF_PATH}/tools:${PATH}"
+
+RUN source /workdir/python/bin/activate \
+    && pip install -r $IDF_PATH/requirements.txt
+
+VOLUME /workdir/build /workdir/tools
+
+WORKDIR  /workdir/build
+
+CMD ["make"]
+

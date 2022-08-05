@@ -1,4 +1,4 @@
 # project name and proejct dir is same
-export PROJECT_NAME="ubuntu"
+export PROJECT_NAME="alpine-esp32-build"
 export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
-export VERSION=20.04
+export VERSION="esp32-4.4"
