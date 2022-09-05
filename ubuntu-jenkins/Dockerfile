@@ -1,4 +1,6 @@
-FROM clibing/ubuntu-openjdk
+ARG JDK_MAJOR=8 
+
+FROM clibing/ubuntu-openjdk:${JDK_MAJOR:-latest}
 
 LABEL maintainer="clibing <wmsjhappy@gmail.com>"
 

@@ -1,4 +1,4 @@
-FROM clibing/alpine-openjdk
+FROM clibing/alpine-openjdk:11
 
 LABEL maintainer="clibing <wmsjhappy@gmail.com>"
 

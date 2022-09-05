@@ -13,7 +13,10 @@ unset IMAGE_BASE_NAME
 source ./version
         
 echo "begin build base openjdk."
-docker buildx build --platform=${TARGET_PLATFORM} --build-arg JDK_VERSION=${JDK_VERSION} -t ${IMAGE_BASE_NAME}:${JDK_VERSION}-${BUILD_VERSION} --push -f Dockerfile .
+for JDK_VERSION in ${JDK_VERSIONS}
+do
+docker buildx build --platform=${TARGET_PLATFORM} --build-arg JDK_VERSION=${JDK_VERSION} -t ${IMAGE_BASE_NAME}:${JDK_VERSION} --push -f Dockerfile .
 docker buildx build --platform=${TARGET_PLATFORM} --build-arg JDK_VERSION=${JDK_VERSION} -t ${IMAGE_BASE_NAME}:latest --push -f Dockerfile .
+done
 echo "successful build base openjdk."
 

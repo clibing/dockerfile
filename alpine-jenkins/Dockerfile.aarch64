@@ -86,6 +86,4 @@ VOLUME ${NPM_CACHE_DIR}
 
 EXPOSE 8080
 
-# ENTRYPOINT ["/sbin/tini", "java", "-Djava.security.egd=file:/dev/./urandom", "-Djava.awt.headless=true", "-jar", "/opt/jenkins.war"]
-
-
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-Djava.awt.headless=true", "-jar", "/opt/jenkins.war"]
