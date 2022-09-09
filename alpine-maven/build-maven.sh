@@ -13,6 +13,9 @@ unset IMAGE_BASE_NAME
 
 source ./version
 
+export JDK_TYPE=alpine-openjdk
+export JDK_VERSION=11
+export TARGET_PLATFORM="linux/amd64,linux/arm64/v8"
 echo "begin build base apache maven."
 docker buildx build --no-cache --platform=${TARGET_PLATFORM} --build-arg MAVEN_VERSION=${MAVEN_VERSION} -t ${IMAGE_BASE_NAME}:${MAVEN_VERSION} --push -f Dockerfile .
 docker buildx build --no-cache --platform=${TARGET_PLATFORM} --build-arg MAVEN_VERSION=${MAVEN_VERSION} -t ${IMAGE_BASE_NAME}:latest --push -f Dockerfile .
