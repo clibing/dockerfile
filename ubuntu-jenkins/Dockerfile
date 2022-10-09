@@ -44,14 +44,15 @@ ENV GOPATH "/workdir/go"
 RUN echo "BUILDPLATFORM: $BUILDPLATFORM"
 
 RUN echo "INSTALL: Dep, go python nodejs... other dep"
-RUN apt update -y && apt install -qqy tar postfix git golang python3 ca-certificates nodejs npm gcc libprotobuf-dev protobuf-compiler apt-transport-https curl software-properties-common 
+RUN apt update -y && apt install -qqy gnupg tar postfix git golang python3 ca-certificates  \
+     nodejs npm gcc libprotobuf-dev protobuf-compiler apt-transport-https curl software-properties-common 
 
 RUN echo "INSTALL: Docker"
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-# RUN curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" | gpg --dearmor --yes -o /usr/share/keyrings/docker-archive-keyring.gpg \
-#    && chmod a+r /usr/share/keyrings/docker-archive-keyring.gpg \
-RUN add-apt-repository "deb [arch=$(uname -m)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \ 
-    && apt update -y && apt -qqy install docker postfix \
+RUN mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \
+    && apt update -y && apt -qqy install docker-ce docker-ce-cli containerd.io docker-compose-plugin \
     && rm -rf /var/lib/apt/lists/*
 #    && add-apt-repository "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/$(. /etc/os-release; echo $ID) $(lsb_release -cs) stable" \ 
 
