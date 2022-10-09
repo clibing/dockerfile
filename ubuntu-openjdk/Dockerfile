@@ -25,9 +25,10 @@ ENV JAVA_OPTS   -Djava.security.egd=file:/dev/./urandom \
                 -Xloggc:${JAVA_GC_LOG} \
                 ${JAVA_OPTS}
 
-RUN apt update -y \
-    && apt -qqy install ttf-dejavu fontconfig procps openjdk-${JDK_VERSION}-jdk libnss3 iputils-ping net-tools \
-    && ln -s /usr/lib/jvm/java-8-openjdk-* /usr/lib/jvm/default-jvm
+RUN apt update -y 
+
+RUN apt -qqy install fonts-dejavu fontconfig procps openjdk-${JDK_VERSION}-jdk libnss3 iputils-ping net-tools \
+    && ln -s /usr/lib/jvm/java-${JDK_VERSION}-openjdk-* /usr/lib/jvm/default-jvm
 
 RUN rm -rf /var/cache/apk/*
                                
