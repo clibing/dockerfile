@@ -1,4 +1,4 @@
 # project name and proejct dir is same
-export PROJECT_NAME="ubuntu"
+export PROJECT_NAME="alpine-ai-wb2-build"
 export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
-export VERSION=22.04
+export VERSION="0.0.1"
