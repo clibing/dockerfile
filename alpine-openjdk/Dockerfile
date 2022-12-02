@@ -26,7 +26,7 @@ ENV JAVA_OPTS   -Djava.security.egd=file:/dev/./urandom \
                 ${JAVA_OPTS}
 
 RUN apk upgrade --update \
-    && apk add ttf-dejavu fontconfig nss procps iputils openjdk${JDK_VERSION} tini \
+    && apk add ttf-dejavu fontconfig nss procps iputils tini openjdk${JDK_VERSION} \
     && rm -rf /var/cache/apk/*
 
 ENV PATH=${JAVA_HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
