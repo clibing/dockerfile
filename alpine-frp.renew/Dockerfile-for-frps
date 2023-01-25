@@ -1,0 +1,19 @@
+FROM golang:1.19 AS building
+
+ARG TAG="v0.46.1"
+
+RUN git clone -b $TAG https://github.com/fatedier/frp.git /building
+
+WORKDIR /building
+
+ENV GOPROXY https://goproxy.cn,https://proxy.golang.org,direct
+
+RUN make frps
+
+FROM clibing/alpine
+
+COPY --from=building /building/bin/frps /usr/bin/frps
+
+WORKDIR /frp
+
+ENTRYPOINT ["/usr/bin/frps"]
