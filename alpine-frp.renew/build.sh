@@ -16,11 +16,11 @@ source ./version
 echo "begin build base frp."
 
 echo "begin build base frpc."
-docker buildx build --no-cache --platform=${TARGET_PLATFORM_v8} --build-arg TAG=${TAG} -t ${IMAGE_BASE_NAME}:${TAG} --push -f Dockerfile-for-frpc .
-docker buildx build --no-cache --platform=${TARGET_PLATFORM_v8} --build-arg TAG=${TAG} -t ${IMAGE_BASE_NAME}:latest --push -f Dockerfile-for-frpc .
+docker buildx build --platform=${TARGET_PLATFORM_v8} --build-arg TAG=${TAG} -t ${IMAGE_BASE_NAME}:${TAG} --push -f Dockerfile-for-frpc .
+docker buildx build --platform=${TARGET_PLATFORM_v8} --build-arg TAG=${TAG} -t ${IMAGE_BASE_NAME}:latest --push -f Dockerfile-for-frpc .
 
 echo "begin build base frps."
-docker buildx build --no-cache --platform=${TARGET_PLATFORM_v8} --build-arg TAG=${TAG} -t ${IMAGE_BASE_NAME}:${TAG} --push -f Dockerfile-for-frps .
-docker buildx build --no-cache --platform=${TARGET_PLATFORM_v8} --build-arg TAG=${TAG} -t ${IMAGE_BASE_NAME}:latest --push -f Dockerfile-for-frps .
+docker buildx build --platform=${TARGET_PLATFORM_v8} --build-arg TAG=${TAG} -t ${IMAGE_BASE_NAME}:${TAG} --push -f Dockerfile-for-frps .
+docker buildx build --platform=${TARGET_PLATFORM_v8} --build-arg TAG=${TAG} -t ${IMAGE_BASE_NAME}:latest --push -f Dockerfile-for-frps .
 echo "successful build frp."
 
