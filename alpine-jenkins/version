@@ -1,5 +1,7 @@
 export PROJECT_NAME="alpine-jenkins"
 export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
 # export VERSION=2.277.1
-export VERSION=2.289.1
+# export VERSION=2.289.1
+export VERSION=2.346.3
+export JDK_VERSION=11
 export MAVEN_VERSION=3.6.3

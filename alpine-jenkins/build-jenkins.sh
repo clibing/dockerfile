@@ -13,6 +13,8 @@ unset IMAGE_BASE_NAME
 
 source ./version
 
+export TARGET_PLATFORM="linux/amd64,linux/arm64/v8"
+
 echo "begin build base jenkins."
 docker buildx build --platform=${TARGET_PLATFORM} \
     -t ${IMAGE_BASE_NAME}:${VERSION} \

@@ -6,6 +6,8 @@
 #########################################################################
 #!/bin/bash
 
+set -e
+
 source ../version
 
 unset PROJECT_NAME 
@@ -13,13 +15,14 @@ unset IMAGE_BASE_NAME
 
 source ./version
 
-echo "begin build base jenkins."
-# docker buildx build --no-cache \
-docker buildx build \
-    --platform="linux/arm64/v8" \
-    -t ${IMAGE_BASE_NAME}:${VERSION}-aarch64 \
-    --build-arg MAVEN_VERSION=${MAVEN_VERSION} \
-    --build-arg JDK_VERSION=${JDK_VERSION} \
-    --build-arg JENKINS_VERSION=${VERSION}  \
-    --push -f Dockerfile.aarch64 .
+
+#   -t ${IMAGE_BASE_NAME}:${VERSION} --push -f Dockerfile .
+#    --no-cache \
+
+echo "begin ai-wb2 build."
+# docker buildx build \
+#     --platform="linux/amd64" \
+#     -t ${IMAGE_BASE_NAME}:${VERSION} -f Dockerfile .
+docker build -t ${IMAGE_BASE_NAME}:${VERSION} -f Dockerfile .
+echo "successful ai-wb2 build."
 
