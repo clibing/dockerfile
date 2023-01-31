@@ -31,7 +31,10 @@ jobs:
         with:
           context: alpine
           platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6
-          push: false
-          tags: clibing/alpine:latest
+          push: true
+          tags: clibing/alpine:latest, clibing/alpine:3.17.0
+          build-args: |
+            ALPINE_VERSION=3.17.0
+
 
 
