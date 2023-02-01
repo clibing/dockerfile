@@ -21,7 +21,7 @@ env:
   alpine_docker: "skip"
   alpine_docker_image: "clibing/alpine-docker"
 
-  alpine_openjdk: "skip"
+  alpine_openjdk: "run"
   alpine_openjdk_image: "clibing/alpine-openjdk"
 
 jobs:
@@ -91,7 +91,7 @@ jobs:
         if: ${{ env.all == 'run' || env.alpine_openjdk == 'run' }}
         with:
           context: alpine-openjdk
-          platforms: ${{ env.platforms_ignore_v6 }}
+          platforms: ${{ env.platforms_ignore_v6_v7 }}
           push: true
           tags: ${{ env.alpine_openjdk_image }}:11
           build-args: |
