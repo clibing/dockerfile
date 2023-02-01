@@ -10,6 +10,11 @@ env:
   all: "skip"
   alpine: "run"
   alpine_coredns: "run"
+  alpine_coredns_image: ${{ secrets.DOCKERHUB_USERNAME }}"/alpine-coredns"
+  alpine_coredns_version: "v1.10.0"
+
+  alpine_docker: "skip"
+  alpine_docker_image:  ${{ secrets.DOCKERHUB_USERNAME }}"/alpine-docker"
 
 jobs:
   docker:
@@ -33,7 +38,7 @@ jobs:
       -
         name: Build and push alpine
         uses: docker/build-push-action@v3
-        if: ${{ env.alpine == 'run' || env.all == 'run' }}
+        if: ${{ env.all == 'run' || env.alpine == 'run' }}
         with:
           context: alpine
           platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6
@@ -44,13 +49,21 @@ jobs:
       -
         name: Build and push alpine coredns
         uses: docker/build-push-action@v3
-        if: ${{ env.alpine_coredns == 'run' || env.all == 'run' }}
+        if: ${{ env.all == 'run' || env.alpine_coredns == 'run' }}
         with:
           context: alpine-coredns
           platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6
           push: true
-          tags: clibing/alpine-coredns:latest, clibing/alpine-core:v1.10.0
+          tags: ${{ env.alpine_coredns_image }}:latest, ${{ env.alpine_coredns_image }}:${{ env.alpine_coredns_version }}
           build-args: |
-            COREDNS_VERSION=v1.10.0
-
+            COREDNS_VERSION=${{ env.alpine_coredns_version }}
+      -
+        name: Build and push alpine docker 
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_docker == 'run' }}
+        with:
+          context: alpine-docker
+          platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6
+          push: true
+          tags: ${{ env.alpine_docker_image }}:latest
 
