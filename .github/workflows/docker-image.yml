@@ -6,6 +6,10 @@ on:
       - "main"
       - "master"
 
+env:
+  alpine: "run"
+  alpine_coredns: "skip"
+
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -26,8 +30,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
+        name: Build and push alpine
         uses: docker/build-push-action@v3
+        if: env.alpine == 'run' 
         with:
           context: alpine
           platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6
@@ -35,6 +40,16 @@ jobs:
           tags: clibing/alpine:latest, clibing/alpine:3.17, clibing/alpine:3.17.1
           build-args: |
             ALPINE_VERSION=3.17.1
-
+      -
+        name: Build and push alpine coredns
+        uses: docker/build-push-action@v3
+        if: env.alpine_coredns == 'run' 
+        with:
+          context: alpine_coredns
+          platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6
+          push: true
+          tags: clibing/alpine-coredns:latest, clibing/alpine-core:v1.10.0
+          build-args: |
+            COREDNS_VERSION=v1.10.0
 
 
