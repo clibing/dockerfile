@@ -8,12 +8,15 @@ on:
 
 env:
   all: "skip"
+  platforms: "linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6"
+
   alpine: "run"
-  alpine_coredns: "run"
+
+  alpine_coredns: "skip"
   alpine_coredns_image: "clibing/alpine-coredns"
   alpine_coredns_version: "v1.10.0"
 
-  alpine_docker: "skip"
+  alpine_docker: "run"
   alpine_docker_image: "clibing/alpine-docker"
 
 jobs:
@@ -41,7 +44,7 @@ jobs:
         if: ${{ env.all == 'run' || env.alpine == 'run' }}
         with:
           context: alpine
-          platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6
+          platforms: ${{ env.platform }}
           push: true
           tags: clibing/alpine:latest, clibing/alpine:3.17, clibing/alpine:3.17.1
           build-args: |
@@ -52,7 +55,7 @@ jobs:
         if: ${{ env.all == 'run' || env.alpine_coredns == 'run' }}
         with:
           context: alpine-coredns
-          platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6
+          platforms: ${{ env.platform }}
           push: true
           tags: ${{ env.alpine_coredns_image }}:latest,${{ env.alpine_coredns_image }}:${{ env.alpine_coredns_version }}
           build-args: |
@@ -63,7 +66,7 @@ jobs:
         if: ${{ env.all == 'run' || env.alpine_docker == 'run' }}
         with:
           context: alpine-docker
-          platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6
+          platforms: ${{ env.platform }}
           push: true
           tags: ${{ env.alpine_docker_image }}:latest
 
