@@ -82,7 +82,7 @@ jobs:
           context: alpine-openjdk
           platforms: ${{ env.platforms }}
           push: true
-          tags: ${{ env.alpine_openjdk_image }}:8,${{ env.alpine_openjdk_image }}/latest 
+          tags: ${{ env.alpine_openjdk_image }}:8,${{ env.alpine_openjdk_image }}:latest 
           build-args: |
             JDK_VERSION=8
       -
