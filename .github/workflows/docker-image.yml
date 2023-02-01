@@ -7,7 +7,7 @@ on:
       - "master"
 
 env:
-  all: "run"
+  all: "skip"
   alpine: "run"
   alpine_coredns: "run"
 
@@ -46,7 +46,7 @@ jobs:
         uses: docker/build-push-action@v3
         if: ${{ env.alpine_coredns == 'run' || env.all == 'run' }}
         with:
-          context: alpine_coredns
+          context: alpine-coredns
           platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6
           push: true
           tags: clibing/alpine-coredns:latest, clibing/alpine-core:v1.10.0
