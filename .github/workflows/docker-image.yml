@@ -16,8 +16,11 @@ env:
   alpine_coredns_image: "clibing/alpine-coredns"
   alpine_coredns_version: "v1.10.0"
 
-  alpine_docker: "run"
+  alpine_docker: "skip"
   alpine_docker_image: "clibing/alpine-docker"
+
+  alpine_openjdk: "run"
+  alpine_openjdk_image: "clibing/alpine-openjdk"
 
 jobs:
   docker:
@@ -69,4 +72,36 @@ jobs:
           platforms: ${{ env.platforms }}
           push: true
           tags: ${{ env.alpine_docker_image }}:latest
-
+      -
+        name: Build and push alpine openjdk 8
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_openjdk == 'run' }}
+        with:
+          context: alpine-openjdk
+          platforms: ${{ env.platforms }}
+          push: true
+          tags: ${{ env.alpine_openjdk_image }}:8
+          build-args: |
+            JDK_VERSION=8
+      -
+        name: Build and push alpine openjdk 11
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_openjdk == 'run' }}
+        with:
+          context: alpine-openjdk
+          platforms: ${{ env.platforms }}
+          push: true
+          tags: ${{ env.alpine_openjdk_image }}:11
+          build-args: |
+            JDK_VERSION=11
+      -
+        name: Build and push alpine openjdk 17
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_openjdk == 'run' }}
+        with:
+          context: alpine-openjdk
+          platforms: ${{ env.platforms }}
+          push: true
+          tags: ${{ env.alpine_openjdk_image }}:17,${{ env.alpine_openjdk_image }}/latest 
+          build-args: |
+            JDK_VERSION=17
