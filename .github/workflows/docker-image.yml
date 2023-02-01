@@ -7,8 +7,9 @@ on:
       - "master"
 
 env:
+  all: "run"
   alpine: "run"
-  alpine_coredns: "skip"
+  alpine_coredns: "run"
 
 jobs:
   docker:
@@ -32,7 +33,7 @@ jobs:
       -
         name: Build and push alpine
         uses: docker/build-push-action@v3
-        if: env.alpine == 'run' 
+        if: ${{ env.alpine == 'run' || env.all == 'run' }}
         with:
           context: alpine
           platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6
@@ -43,7 +44,7 @@ jobs:
       -
         name: Build and push alpine coredns
         uses: docker/build-push-action@v3
-        if: env.alpine_coredns == 'run' 
+        if: ${{ env.alpine_coredns == 'run' || env.all == 'run' }}
         with:
           context: alpine_coredns
           platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6
