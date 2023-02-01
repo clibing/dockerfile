@@ -10,7 +10,7 @@ env:
   all: "skip"
   platforms: "linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6"
 
-  alpine: "run"
+  alpine: "skip"
 
   alpine_coredns: "skip"
   alpine_coredns_image: "clibing/alpine-coredns"
