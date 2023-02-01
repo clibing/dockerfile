@@ -44,7 +44,7 @@ jobs:
         if: ${{ env.all == 'run' || env.alpine == 'run' }}
         with:
           context: alpine
-          platforms: ${{ env.platform }}
+          platforms: ${{ env.platforms }}
           push: true
           tags: clibing/alpine:latest, clibing/alpine:3.17, clibing/alpine:3.17.1
           build-args: |
@@ -55,7 +55,7 @@ jobs:
         if: ${{ env.all == 'run' || env.alpine_coredns == 'run' }}
         with:
           context: alpine-coredns
-          platforms: ${{ env.platform }}
+          platforms: ${{ env.platforms }}
           push: true
           tags: ${{ env.alpine_coredns_image }}:latest,${{ env.alpine_coredns_image }}:${{ env.alpine_coredns_version }}
           build-args: |
@@ -66,7 +66,7 @@ jobs:
         if: ${{ env.all == 'run' || env.alpine_docker == 'run' }}
         with:
           context: alpine-docker
-          platforms: ${{ env.platform }}
+          platforms: ${{ env.platforms }}
           push: true
           tags: ${{ env.alpine_docker_image }}:latest
 
