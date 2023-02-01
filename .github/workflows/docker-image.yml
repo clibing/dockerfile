@@ -10,11 +10,11 @@ env:
   all: "skip"
   alpine: "run"
   alpine_coredns: "run"
-  alpine_coredns_image: ${{ secrets.DOCKERHUB_USERNAME }}"/alpine-coredns"
+  alpine_coredns_image: "clibing/alpine-coredns"
   alpine_coredns_version: "v1.10.0"
 
   alpine_docker: "skip"
-  alpine_docker_image:  ${{ secrets.DOCKERHUB_USERNAME }}"/alpine-docker"
+  alpine_docker_image: "clibing/alpine-docker"
 
 jobs:
   docker:
@@ -54,7 +54,7 @@ jobs:
           context: alpine-coredns
           platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6
           push: true
-          tags: ${{ env.alpine_coredns_image }}:latest, ${{ env.alpine_coredns_image }}:${{ env.alpine_coredns_version }}
+          tags: ${{ env.alpine_coredns_image }}:latest,${{ env.alpine_coredns_image }}:${{ env.alpine_coredns_version }}
           build-args: |
             COREDNS_VERSION=${{ env.alpine_coredns_version }}
       -
