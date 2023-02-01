@@ -10,6 +10,7 @@ env:
   all: "skip"
   platforms: "linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6"
   platforms_ignore_v6: "linux/amd64,linux/arm64/v8,linux/arm/v7"
+  platforms_ignore_v6_v7: "linux/amd64,linux/arm64/v8"
 
   alpine: "skip"
 
@@ -101,7 +102,7 @@ jobs:
         if: ${{ env.all == 'run' || env.alpine_openjdk == 'run' }}
         with:
           context: alpine-openjdk
-          platforms: ${{ env.platforms_ignore_v6 }}
+          platforms: ${{ env.platforms_ignore_v6_v7 }}
           push: true
           tags: ${{ env.alpine_openjdk_image }}:17,${{ env.alpine_openjdk_image }}/latest 
           build-args: |
