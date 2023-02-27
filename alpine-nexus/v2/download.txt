@@ -1,0 +1,8 @@
+nexus 2.x 
+
+https://help.sonatype.com/repomanager2/download
+
+current latest version 
+
+https://download.sonatype.com/nexus/oss/nexus-2.15.1-02-bundle.tar.gz
+
