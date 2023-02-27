@@ -21,8 +21,11 @@ env:
   alpine_docker: "skip"
   alpine_docker_image: "clibing/alpine-docker"
 
-  alpine_openjdk: "run"
+  alpine_openjdk: "skip"
   alpine_openjdk_image: "clibing/alpine-openjdk"
+
+  alpine_tomcat: "run"
+  alpine_tomcat_image: "clibing/alpine-tomcat"
 
 jobs:
   docker:
@@ -107,3 +110,15 @@ jobs:
           tags: ${{ env.alpine_openjdk_image }}:17
           build-args: |
             JDK_VERSION=17
+      -
+        name: Build and push alpine tomcat 8
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_tomcat == 'run' }}
+        with:
+          context: alpine-tomcat
+          platforms: ${{ env.platforms }}
+          push: true
+          tags: ${{ env.alpine_tomcat_image }}:8.5,${{ env.alpine_tomcat_image }}:latest 
+          build-args: |
+            JDK_VERSION=8
+            JDK_TYPE=alpine-openjdk

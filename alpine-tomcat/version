@@ -1,6 +1,6 @@
 # project name and proejct dir is same
 export PROJECT_NAME="alpine-tomcat"
 export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
-export TOMCAT_VERSION="8.5.61"
+export TOMCAT_VERSION="8.5.86"
 export JDK_TYPE="alpine-openjdk"
 export JDK_VERSION="8"
