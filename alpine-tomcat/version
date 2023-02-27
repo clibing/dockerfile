@@ -2,3 +2,5 @@
 export PROJECT_NAME="alpine-tomcat"
 export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
 export TOMCAT_VERSION="8.5.61"
+export JDK_TYPE="alpine-openjdk"
+export JDK_VERSION="8"
