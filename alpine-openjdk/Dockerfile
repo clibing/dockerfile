@@ -1,6 +1,6 @@
 FROM clibing/alpine
 
-MAINTAINER clibing <wmsjhappy@gmail.com>
+LABEL MAINTAINER clibing <wmsjhappy@gmail.com>
 
 ARG JDK_VERSION="8"
 

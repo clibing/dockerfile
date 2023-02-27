@@ -1,18 +1,109 @@
-name: Docker Image CI
+name: ci
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches:
+      - "main"
+      - "master"
+
+env:
+  all: "skip"
+  platforms: "linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6"
+  platforms_ignore_v6: "linux/amd64,linux/arm64/v8,linux/arm/v7"
+  platforms_ignore_v6_v7: "linux/amd64,linux/arm64/v8"
+
+  alpine: "skip"
+
+  alpine_coredns: "skip"
+  alpine_coredns_image: "clibing/alpine-coredns"
+  alpine_coredns_version: "v1.10.0"
+
+  alpine_docker: "skip"
+  alpine_docker_image: "clibing/alpine-docker"
+
+  alpine_openjdk: "run"
+  alpine_openjdk_image: "clibing/alpine-openjdk"
 
 jobs:
-
-  build:
-
+  docker:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push alpine
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine == 'run' }}
+        with:
+          context: alpine
+          platforms: ${{ env.platforms }}
+          push: true
+          tags: clibing/alpine:latest, clibing/alpine:3.17, clibing/alpine:3.17.1
+          build-args: |
+            ALPINE_VERSION=3.17.1
+      -
+        name: Build and push alpine coredns
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_coredns == 'run' }}
+        with:
+          context: alpine-coredns
+          platforms: ${{ env.platforms }}
+          push: true
+          tags: ${{ env.alpine_coredns_image }}:latest,${{ env.alpine_coredns_image }}:${{ env.alpine_coredns_version }}
+          build-args: |
+            COREDNS_VERSION=${{ env.alpine_coredns_version }}
+      -
+        name: Build and push alpine docker 
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_docker == 'run' }}
+        with:
+          context: alpine-docker
+          platforms: ${{ env.platforms }}
+          push: true
+          tags: ${{ env.alpine_docker_image }}:latest
+      -
+        name: Build and push alpine openjdk 8
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_openjdk == 'run' }}
+        with:
+          context: alpine-openjdk
+          platforms: ${{ env.platforms }}
+          push: true
+          tags: ${{ env.alpine_openjdk_image }}:8,${{ env.alpine_openjdk_image }}:latest 
+          build-args: |
+            JDK_VERSION=8
+      -
+        name: Build and push alpine openjdk 11
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_openjdk == 'run' }}
+        with:
+          context: alpine-openjdk
+          platforms: ${{ env.platforms_ignore_v6_v7 }}
+          push: true
+          tags: ${{ env.alpine_openjdk_image }}:11
+          build-args: |
+            JDK_VERSION=11
+      -
+        name: Build and push alpine openjdk 17
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_openjdk == 'run' }}
+        with:
+          context: alpine-openjdk
+          platforms: ${{ env.platforms_ignore_v6_v7 }}
+          push: true
+          tags: ${{ env.alpine_openjdk_image }}:17
+          build-args: |
+            JDK_VERSION=17

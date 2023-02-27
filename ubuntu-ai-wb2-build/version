@@ -1,4 +1,10 @@
 # project name and proejct dir is same
+<<<<<<< HEAD
 export PROJECT_NAME="ai-wb2-build"
 export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
 export VERSION="latest"
+=======
+export PROJECT_NAME="alpine-ai-wb2-build"
+export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
+export VERSION="0.0.1"
+>>>>>>> 88e12dfca79c9387c44bd3028883a437f2db9ae9

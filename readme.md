@@ -34,3 +34,8 @@ docker buildx build --platform=linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm
 
 ...
 
+### build step
+
+* alpine
+
+https://github.com/docker/build-push-action 查看 with的参数

@@ -11,9 +11,10 @@ ENV LANG="en_US.UTF-8"
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 
 RUN apk upgrade --update \
-    && apk add bash tzdata curl wget \
+    && apk add bash tzdata curl wget tini \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
     && rm -rf /var/cache/apk/*
 
+ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["/bin/bash"]
