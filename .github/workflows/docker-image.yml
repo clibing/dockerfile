@@ -122,3 +122,5 @@ jobs:
           build-args: |
             JDK_VERSION=8
             JDK_TYPE=alpine-openjdk
+            ARG TOMCAT_VERSION=8.5.86
+            APR_VERSION=2.0.3
