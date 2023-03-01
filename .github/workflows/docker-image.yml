@@ -134,7 +134,7 @@ jobs:
         with:
           context: alpine-nexus
           platforms: ${{ env.platforms }}
-          file: ./Dockerfile.v2
+          file: ./alpine-nexus/Dockerfile.v2
           push: true
           tags: ${{ env.alpine_nexus_image }}:2
           build-args: |
