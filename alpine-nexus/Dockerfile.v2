@@ -1,0 +1,36 @@
+ARG TOMCAT_VERSION="8.5"
+
+FROM clibing/alpine-tomcat:${TOMCAT_VERSION}
+
+LABEL maintainer="clibing <wmsjhappy@gmail.com>"
+
+ARG NEXUS_VERSION="2.15.1-02"
+
+ENV SONATYPE_DIR /usr/local/tomcat/webapps
+
+ENV SONATYPE_WORK ${SONATYPE_DIR}/sonatype-work
+
+ENV NEXUS_HOME ${SONATYPE_DIR}/ROOT
+
+# ADD v2/nexus-2.15.1-02-bundle.tar.gz /tmp/
+
+RUN mkdir -p ${SONATYPE_WORK} \ 
+    && wget --no-check-certificate https://download.sonatype.com/nexus/oss/nexus-${NEXUS_VERSION}-bundle.tar.gz \
+    && tar -zxvf nexus-${NEXUS_VERSION}-bundle.tar.gz \
+    && mv nexus-${NEXUS_VERSION}/nexus $NEXUS_HOME \
+    && echo "update plugin-repository to mini" \
+    && mv $NEXUS_HOME/WEB-INF/plugin-repository  $NEXUS_HOME/WEB-INF/plugin-repository.backup \
+    && mkdir -p $NEXUS_HOME/WEB-INF/plugin-repository  \
+    && mv $NEXUS_HOME/WEB-INF/plugin-repository.backup/nexus-content-plugin-* $NEXUS_HOME/WEB-INF/plugin-repository \
+    && mv $NEXUS_HOME/WEB-INF/plugin-repository.backup/nexus-indexer-lucene-plugin-* $NEXUS_HOME/WEB-INF/plugin-repository \
+    && mv $NEXUS_HOME/WEB-INF/plugin-repository.backup/nexus-maven-bridge-plugin-* $NEXUS_HOME/WEB-INF/plugin-repository \
+    && mv $NEXUS_HOME/WEB-INF/plugin-repository.backup/nexus-orient-plugin-* $NEXUS_HOME/WEB-INF/plugin-repository \
+    && mv $NEXUS_HOME/WEB-INF/plugin-repository.backup/nexus-plugin-console-plugin-* $NEXUS_HOME/WEB-INF/plugin-repository \
+    && mv $NEXUS_HOME/WEB-INF/plugin-repository.backup/nexus-restlet1x-plugin-* $NEXUS_HOME/WEB-INF/plugin-repository \
+    && mv $NEXUS_HOME/WEB-INF/plugin-repository.backup/nexus-ui-extjs3-plugin-* $NEXUS_HOME/WEB-INF/plugin-repository \
+    && mv $NEXUS_HOME/WEB-INF/plugin-repository.backup/nexus-webresources-plugin-* $NEXUS_HOME/WEB-INF/plugin-repository \
+    && echo "update plugin-repository to mini" \
+    && rm -rf nexus-${NEXUS_VERSION}/lib/javax.servlet*.jar nexus-${NEXUS_VERSION}/lib/jetty-*.jar \
+    && mv nexus-${NEXUS_VERSION}/lib/*.jar $NEXUS_HOME/WEB-INF/lib \
+    && rm -rf nexus-${NEXUS_VERSION} nexus-${NEXUS_VERSION}-bundle.tar.gz $NEXUS_HOME/WEB-INF/plugin-repository.backup \
+    && echo "build success"
