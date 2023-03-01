@@ -132,9 +132,9 @@ jobs:
         uses: docker/build-push-action@v3
         if: ${{ env.all == 'run' || env.alpine_nexus == 'run' }}
         with:
-          file: ./Dockerfile.v2
           context: alpine-nexus
           platforms: ${{ env.platforms }}
+          file: ./Dockerfile.v2
           push: true
           tags: ${{ env.alpine_nexus_image }}:2
           build-args: |
