@@ -127,7 +127,7 @@ jobs:
             JDK_TYPE=alpine-openjdk
             TOMCAT_VERSION=8.5.86
             APR_VERSION=2.0.3
-       -
+      -
         name: Build and push alpine tomcat 8
         uses: docker/build-push-action@v3
         if: ${{ env.all == 'run' || env.alpine_nexus == 'run' }}
