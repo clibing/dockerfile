@@ -1,4 +1,4 @@
-FROM clibing/alpine-openjdk
+FROM clibing/alpine-openjdk:8
 
 LABEL maintainer="clibing <wmsjhappy@gmail.com>"
 
@@ -19,7 +19,7 @@ ENV NPM_REGISTRY https://registry.npm.taobao.org
 ENV NPM_DISTURL https://npm.taobao.org/dist
 
 # 默认当项目中有go.mod文件就用go mod管理，没有就还是旧的方式，GO111MODULE=on强制使用go mod，GO111MODULE=off关闭go mod
-# ENV GO111MODULE ""
+ENV GO111MODULE "auto"
 
 # GOPROXY设置代理，我建议设置成与我上面一致，第一个地址是七牛云的代理，防止被墙，direct值得是从源站下载
 ENV GOPROXY "https://goproxy.cn,https://proxy.golang.org,https://goproxy.io,direct" 
@@ -27,7 +27,7 @@ ENV GOPROXY "https://goproxy.cn,https://proxy.golang.org,https://goproxy.io,dire
 # 指示校验和服务器的地址和公钥，这里指"sum.golang.org"的公钥可省略，若要关闭校验，GOSUMDB=off。
 ENV GOSUMDB "sum.golang.org" 
 
-RUN apk add --no-cache tar git python3 ca-certificates go unzip nodejs npm gcc \
+RUN apk add --no-cache tar git python3 ca-certificates go unzip nodejs npm gcc make file \
     && mkdir -p ${MAVEN_HOME} \
     && wget ${MAVEN_DOWNLOAD_URL} \
     && tar -zxf apache-maven-${MAVEN_VERSION}-bin.tar.gz -C ${MAVEN_HOME} --strip-components=1 \

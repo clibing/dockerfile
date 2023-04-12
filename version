@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 export ALPINE_VERSION=3.17
-=======
-export ALPINE_VERSION=3.16.1
->>>>>>> 88e12dfca79c9387c44bd3028883a437f2db9ae9
 export TARGET_PLATFORM="linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6"
 export TARGET_PLATFORM_v7="linux/amd64,linux/arm64/v8,linux/arm/v7"
 export TARGET_PLATFORM_v8="linux/amd64,linux/arm64/v8"
