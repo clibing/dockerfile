@@ -1,4 +1,4 @@
 # project name and proejct dir is same
 export PROJECT_NAME="alpine-mitmproxy"
 export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
-export VERSION="latest"
+export VERSION="20230428"
