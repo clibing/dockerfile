@@ -4,3 +4,5 @@ export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
 # export FRP_VERSION=0.31.2
 # export FRP_VERSION=0.26.0
 export FRP_VERSION=0.35.1
+export RELEASE=0.48.0
+

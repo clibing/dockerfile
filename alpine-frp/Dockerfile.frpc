@@ -1,0 +1,21 @@
+# FROM --platform=$BUILDPLATFORM clibing/alpine-build AS build
+FROM clibing/alpine-build AS build
+
+ARG RELEASE=0.48.0
+
+RUN git clone -b v${RELEASE} https://github.com/fatedier/frp.git /root/go/src/github.com/fatedier/frp \
+        && cd /root/go/src/github.com/fatedier/frp \
+        && make frpc
+
+FROM clibing/alpine
+
+LABEL maintainer="clibing <wmsjhappy@gmail.com>"
+
+COPY --from=build /root/go/src/github.com/fatedier/frp/bin/frpc /bin/frpc
+
+COPY --from=build /root/go/src/github.com/fatedier/frp/conf/frpc.ini /etc/frpc.ini
+
+COPY --from=build /root/go/src/github.com/fatedier/frp/conf/frpc_full.ini /etc/frpc_full.ini
+
+CMD ["/bin/frpc", "-c", "/etc/frpc.ini"]
+
