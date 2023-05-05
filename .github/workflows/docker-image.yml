@@ -27,8 +27,11 @@ env:
   alpine_tomcat: "skip"
   alpine_tomcat_image: "clibing/alpine-tomcat"
 
-  alpine_nexus: "run"
+  alpine_nexus: "skip"
   alpine_nexus_image: "clibing/alpine-nexus"
+
+  alpine_frp: "run"
+  alpine_frp_image: "clibing/alpine-frp"
 
 jobs:
   docker:
@@ -139,4 +142,32 @@ jobs:
           tags: ${{ env.alpine_nexus_image }}:2
           build-args: |
             TOMCAT_VERSION=8.5
+      -
+        name: Build and push alpine frp client v 0.48.0
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_frp == 'run' }}
+        with:
+          context: alpine-frp
+          platforms: ${{ env.platforms }}
+          file: ./alpine-frp/Dockerfile.frpc
+          push: true
+          tags: ${{ env.alpine_frp_image }}:client-0.48.0
+          build-args: |
+            RELEASE=0.48.0
+      -
+        name: Build and push alpine frp server v 0.48.0
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_frp == 'run' }}
+        with:
+          context: alpine-frp
+          platforms: ${{ env.platforms }}
+          file: ./alpine-frp/Dockerfile.frps
+          push: true
+          tags: ${{ env.alpine_frp_image }}:server-0.48.0
+          build-args: |
+            RELEASE=0.48.0
+
+
+
+
 
