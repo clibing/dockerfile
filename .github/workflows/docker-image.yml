@@ -30,8 +30,11 @@ env:
   alpine_nexus: "skip"
   alpine_nexus_image: "clibing/alpine-nexus"
 
-  alpine_frp: "run"
+  alpine_frp: "skip"
   alpine_frp_image: "clibing/alpine-frp"
+
+  debian: "run"
+  debian_image: "clibing/debian"
 
 jobs:
   docker:
@@ -166,6 +169,22 @@ jobs:
           tags: ${{ env.alpine_frp_image }}:server-0.48.0
           build-args: |
             RELEASE=0.48.0
+      -
+        name: Build and push debian 11-slim
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.debian == 'run' }}
+        with:
+          context: debian
+          platforms: ${{ env.platforms }}
+          file: ./debian/Dockerfile
+          push: true
+          tags: ${{ env.debian_image }}:11-slim
+          build-args: |
+            VERSION=11-slim
+
+
+
+
 
 
 

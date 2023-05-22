@@ -1,0 +1,4 @@
+# project name and proejct dir is same
+export PROJECT_NAME="debian"
+export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
+export VERSION="stable-slim"
