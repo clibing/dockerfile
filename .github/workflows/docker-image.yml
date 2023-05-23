@@ -187,7 +187,7 @@ jobs:
         if: ${{ env.all == 'run' || env.debian == 'run' }}
         with:
           context: debian
-          platforms: ${{ env.platforms }}
+          platforms: ${{ env.platforms_ignore_v6 }}
           file: ./debian/Dockerfile
           push: true
           tags: ${{ env.debian_image }}:10-slim
