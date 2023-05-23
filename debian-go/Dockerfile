@@ -8,6 +8,10 @@ ENV TZ "Asia/Shanghai"
 
 ENV LANG="en_US.UTF-8"
 
+ENV GO111MODULE=auto
+
+ENV GOPROXY=https://goproxy.cn,direct
+
 # fix tzdata selecet and confirm to quit
 ENV DEBIAN_FRONTEND="noninteractive"
 
