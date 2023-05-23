@@ -181,6 +181,20 @@ jobs:
           tags: ${{ env.debian_image }}:11-slim
           build-args: |
             VERSION=11-slim
+      -
+        name: Build and push debian 10-slim
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.debian == 'run' }}
+        with:
+          context: debian
+          platforms: ${{ env.platforms }}
+          file: ./debian/Dockerfile
+          push: true
+          tags: ${{ env.debian_image }}:10-slim
+          build-args: |
+            VERSION=10-slim
+
+
 
 
 
