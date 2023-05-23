@@ -11,6 +11,7 @@ env:
   platforms: "linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6"
   platforms_ignore_v6: "linux/amd64,linux/arm64/v8,linux/arm/v7"
   platforms_ignore_v6_v7: "linux/amd64,linux/arm64/v8"
+  platforms_linux_x86_arm_mips: "linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/mips64le"
 
   alpine: "skip"
 
@@ -33,8 +34,11 @@ env:
   alpine_frp: "skip"
   alpine_frp_image: "clibing/alpine-frp"
 
-  debian: "run"
+  debian: "skip"
   debian_image: "clibing/debian"
+
+  golang: "run"
+  golang_image: "clibing/golang"
 
 jobs:
   docker:
@@ -193,6 +197,24 @@ jobs:
           tags: ${{ env.debian_image }}:10-slim
           build-args: |
             VERSION=10-slim
+      -
+        name: Build and push golang 1.20
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.golang == 'run' }}
+        with:
+          context: debian-go
+          platforms: ${{ env.platforms_linux_x86_arm_mips }}
+          file: ./debian-go/Dockerfile
+          push: true
+          tags: ${{ env.golang_image }}:1.20
+          build-args: |
+            VERSION=1.20
+
+
+
+
+
+
 
 
 

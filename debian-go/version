@@ -1,0 +1,4 @@
+# project name and proejct dir is same
+export PROJECT_NAME="golang"
+export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
+export VERSION="1.20"
