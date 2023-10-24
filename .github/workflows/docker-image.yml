@@ -224,6 +224,7 @@ jobs:
           tags: ${{ env.ubuntu_jenkines_image }}:2.414.3
           build-args: |
             VERSION=2.414.3
+            JENKINS_VERSION=2.414.3
             MAVEN_VERSION=3.9.5
             UBUNTU_NAME=jammy
             JDK_MAJOR=17
