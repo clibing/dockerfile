@@ -41,7 +41,7 @@ env:
   golang_image: "clibing/golang"
 
   ubuntu_jenkins: "run"
-  ubuntu_jenkins_image: "clibing/ubuntu-jenkines"
+  ubuntu_jenkins_image: "clibing/ubuntu-jenkins"
 
 jobs:
   docker:
