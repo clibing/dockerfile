@@ -1,4 +1,4 @@
 # project name and proejct dir is same
 export PROJECT_NAME="ubuntu-openjdk"
 export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
-export JDK_VERSION="11"
+export JDK_VERSION="17"

@@ -1,5 +1,6 @@
 export PROJECT_NAME="ubuntu-jenkins"
 export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
-export VERSION=2.346.3
-export MAVEN_VERSION=3.6.3
+export VERSION=2.414.3
+export MAVEN_VERSION=3.9.5
 export UBUNTU_NAME=jammy
+export JDK_MAJOR=17

@@ -11,6 +11,8 @@ source ../version
 unset PROJECT_NAME 
 unset IMAGE_BASE_NAME
 
+# unset JDK_MAJOR
+
 source ./version
 
 export TARGET_PLATFORM="linux/amd64,linux/arm64/v8"
@@ -21,12 +23,14 @@ docker buildx build --platform=${TARGET_PLATFORM_v8} \
     -t ${IMAGE_BASE_NAME}:${VERSION} \
     --build-arg MAVEN_VERSION=${MAVEN_VERSION} \
     --build-arg JENKINS_VERSION=${VERSION}  \
+    --build-arg JDK_MAJOR=${JDK_MAJOR} \
     --push -f Dockerfile .
 
 docker buildx build --platform=${TARGET_PLATFORM_v8} \
     -t ${IMAGE_BASE_NAME}:latest  \
     --build-arg MAVEN_VERSION=${MAVEN_VERSION} \
     --build-arg JENKINS_VERSION=${VERSION} \
+    --build-arg JDK_MAJOR=${JDK_MAJOR} \
     --push -f Dockerfile .
 echo "successful build jenkins."
 
