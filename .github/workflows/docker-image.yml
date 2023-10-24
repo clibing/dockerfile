@@ -215,7 +215,7 @@ jobs:
       -
         name: Build and push ubuntu jenkines latest
         uses: docker/build-push-action@v3
-        if: ${{ env.all == 'run' || env.golang == 'run' }}
+        if: ${{ env.all == 'run' || env.ubuntu_jenkines == 'run' }}
         with:
           context: ubuntu-jenkins 
           platforms: ${{ env.platforms_ignore_v6_v7 }}
