@@ -40,8 +40,8 @@ env:
   golang: "skip"
   golang_image: "clibing/golang"
 
-  ubuntu_jenkines: "run"
-  ubuntu_jenkines_image: "clibing/ubuntu-jenkines"
+  ubuntu_jenkins: "run"
+  ubuntu_jenkins_image: "clibing/ubuntu-jenkines"
 
 jobs:
   docker:
@@ -213,20 +213,19 @@ jobs:
           build-args: |
             VERSION=1.20
       -
-        name: Build and push ubuntu jenkines latest
+        name: Build and push ubuntu jenkins latest
         uses: docker/build-push-action@v3
-        if: ${{ env.all == 'run' || env.ubuntu_jenkines == 'run' }}
+        if: ${{ env.all == 'run' || env.ubuntu_jenkins == 'run' }}
         with:
           context: ubuntu-jenkins 
           platforms: ${{ env.platforms_ignore_v6_v7 }}
           file: ./ubuntu-jenkins/Dockerfile
           push: true
-          tags: ${{ env.ubuntu_jenkines_image }}:2.414.3
+          tags: ${{ env.ubuntu_jenkins_image }}:2.414.3
           build-args: |
             VERSION=2.414.3
             JENKINS_VERSION=2.414.3
             MAVEN_VERSION=3.9.5
-            UBUNTU_NAME=jammy
             JDK_MAJOR=17
 
 
