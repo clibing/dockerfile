@@ -31,7 +31,7 @@ env:
   alpine_nexus: "skip"
   alpine_nexus_image: "clibing/alpine-nexus"
 
-  alpine_frp: "skip"
+  alpine_frp: "run"
   alpine_frp_image: "clibing/alpine-frp"
 
   debian: "skip"
@@ -40,7 +40,7 @@ env:
   golang: "skip"
   golang_image: "clibing/golang"
 
-  ubuntu_jenkins: "run"
+  ubuntu_jenkins: "skip"
   ubuntu_jenkins_image: "clibing/ubuntu-jenkins"
 
 jobs:
