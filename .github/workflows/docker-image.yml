@@ -32,7 +32,8 @@ env:
   alpine_nexus2: "run"
   alpine_nexus3: "run"
   alpine_nexus_image: "clibing/alpine-nexus"
-  alpine_nexus3_jdk: "17"
+  alpine_nexus3_jdk_type: "alpine-openjdk"
+  alpine_nexus3_jdk_version: "17"
   alpine_nexus3_version: "3.61.0-02"
 
   alpine_frp: "skip"
@@ -167,8 +168,9 @@ jobs:
           push: true
           tags: ${{ env.alpine_nexus_image }}:3
           build-args: |
-            JDK_VERSION=${env.alpine_nexus3_jdk}
-            NEXUS_VERSION=${env.alpine_nexus3_version}
+            JDK_TYPE=${{ env.alpine_nexus3_jdk_type }}
+            JDK_VERSION=${{ env.alpine_nexus3_jdk_version }}
+            NEXUS_VERSION=${{ env.alpine_nexus3_version }}
       -
         name: Build and push alpine frp client v 0.48.0
         uses: docker/build-push-action@v3
