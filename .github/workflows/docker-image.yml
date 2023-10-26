@@ -33,7 +33,7 @@ env:
   alpine_nexus3: "run"
   alpine_nexus_image: "clibing/alpine-nexus"
   alpine_nexus3_jdk_type: "alpine-openjdk"
-  alpine_nexus3_jdk_version: "17"
+  alpine_nexus3_jdk_version: "8"
   alpine_nexus3_version: "3.61.0-02"
 
   alpine_frp: "skip"
