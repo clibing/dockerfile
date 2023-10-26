@@ -15,12 +15,14 @@ source ./version
 
 echo "begin build base nexus oss."
 docker buildx build --no-cache=true \
-    --platform=${TARGET_PLATFORM} \
+    --platform=${TARGET_PLATFORM_v8} \
     --build-arg NEXUS_VERSION=${NEXUS_VERSION} \
+    --build-arg JDK_VERSION=${JDK_VERSION} \
     -t ${IMAGE_BASE_NAME}:${NEXUS_VERSION} --push -f Dockerfile .
 docker buildx build \
-    --platform=${TARGET_PLATFORM} \
+    --platform=${TARGET_PLATFORM_v8} \
     --build-arg NEXUS_VERSION=${NEXUS_VERSION} \
+    --build-arg JDK_VERSION=${JDK_VERSION} \
     -t ${IMAGE_BASE_NAME}:latest --push -f Dockerfile .
 echo "successful build nexus oss."
 

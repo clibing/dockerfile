@@ -1,5 +1,6 @@
 # project name and proejct dir is same
 export PROJECT_NAME="alpine-nexus"
 export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
-export NEXUS_VERSION="3.30.0-01"
+export NEXUS_VERSION="3.61.0-02"
+export JDK_VERSION="17"
 

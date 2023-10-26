@@ -11,6 +11,7 @@ env:
   platforms: "linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6"
   platforms_ignore_v6: "linux/amd64,linux/arm64/v8,linux/arm/v7"
   platforms_ignore_v6_v7: "linux/amd64,linux/arm64/v8"
+  platforms_linux_amd64_arm64v8: "linux/amd64,linux/arm64/v8"
   platforms_linux_x86_arm_mips: "linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/mips64le"
 
   alpine: "skip"
@@ -28,10 +29,12 @@ env:
   alpine_tomcat: "skip"
   alpine_tomcat_image: "clibing/alpine-tomcat"
 
-  alpine_nexus: "skip"
+  alpine_nexus: "run"
   alpine_nexus_image: "clibing/alpine-nexus"
+  alpine_nexus3_jdk: "17"
+  alpine_nexus3_version: "3.61.0-02"
 
-  alpine_frp: "run"
+  alpine_frp: "skip"
   alpine_frp_image: "clibing/alpine-frp"
 
   debian: "skip"
@@ -141,7 +144,7 @@ jobs:
             TOMCAT_VERSION=8.5.86
             APR_VERSION=2.0.3
       -
-        name: Build and push alpine tomcat 8
+        name: Build and push alpine nexus 2.x
         uses: docker/build-push-action@v3
         if: ${{ env.all == 'run' || env.alpine_nexus == 'run' }}
         with:
@@ -152,6 +155,19 @@ jobs:
           tags: ${{ env.alpine_nexus_image }}:2
           build-args: |
             TOMCAT_VERSION=8.5
+      -
+        name: Build and push alpine nexus3
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_nexus3 == 'run' }}
+        with:
+          context: alpine-nexus
+          platforms: ${{ env.platforms_linux_amd64_arm64v8 }}
+          file: ./alpine-nexus/Dockerfile
+          push: true
+          tags: ${{ env.alpine_nexus_image }}:3
+          build-args: |
+            JDK_VERSION=${env.alpine_nexus3_jdk}
+            NEXUS_VERSION=${env.alpine_nexus3_version}
       -
         name: Build and push alpine frp client v 0.48.0
         uses: docker/build-push-action@v3

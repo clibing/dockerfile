@@ -1,10 +1,5 @@
 # project name and proejct dir is same
 export PROJECT_NAME="alpine-openjdk"
 export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
-<<<<<<< HEAD
-export JDK_VERSION="17"
-export BUILD_VERSION="latest"
-=======
 export JDK_VERSIONS="8 11 17"
 export TARGET_PLATFORM="linux/amd64,linux/arm64/v8"
->>>>>>> 88e12dfca79c9387c44bd3028883a437f2db9ae9

@@ -1,13 +1,14 @@
 ARG JDK_TYPE=alpine-openjdk
 ARG JDK_VERSION="latest"
-
 FROM clibing/${JDK_TYPE}:${JDK_VERSION}
 
 LABEL maintainer="clibing <wmsjhappy@gmail.com>"
 
+ARG NEXUS_VERSION=3.29.2-02
+
 ENV SONATYPE_DIR /usr/local/sonatype
 ENV SONATYPE_WORK ${SONATYPE_DIR}/sonatype-work
-ENV NEXUS_VERSION 3.29.2-02
+ENV NEXUS_VERSION ${NEXUS_VERSION}
 ENV NEXUS_HOME ${SONATYPE_DIR}/nexus
 ENV NEXUS_DATA /data/nexus-data
 ENV NEXUS_CONTEXT ''
