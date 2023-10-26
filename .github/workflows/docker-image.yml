@@ -29,7 +29,8 @@ env:
   alpine_tomcat: "skip"
   alpine_tomcat_image: "clibing/alpine-tomcat"
 
-  alpine_nexus: "run"
+  alpine_nexus2: "run"
+  alpine_nexus3: "run"
   alpine_nexus_image: "clibing/alpine-nexus"
   alpine_nexus3_jdk: "17"
   alpine_nexus3_version: "3.61.0-02"
@@ -146,7 +147,7 @@ jobs:
       -
         name: Build and push alpine nexus 2.x
         uses: docker/build-push-action@v3
-        if: ${{ env.all == 'run' || env.alpine_nexus == 'run' }}
+        if: ${{ env.all == 'run' || env.alpine_nexus2 == 'run' }}
         with:
           context: alpine-nexus
           platforms: ${{ env.platforms }}
