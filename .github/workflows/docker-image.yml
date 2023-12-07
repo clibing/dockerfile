@@ -29,8 +29,8 @@ env:
   alpine_tomcat: "skip"
   alpine_tomcat_image: "clibing/alpine-tomcat"
 
-  alpine_nexus2: "run"
-  alpine_nexus3: "run"
+  alpine_nexus2: "skip"
+  alpine_nexus3: "skip"
   alpine_nexus_image: "clibing/alpine-nexus"
   alpine_nexus3_jdk_type: "alpine-openjdk"
   alpine_nexus3_jdk_version: "8"
@@ -47,6 +47,9 @@ env:
 
   ubuntu_jenkins: "skip"
   ubuntu_jenkins_image: "clibing/ubuntu-jenkins"
+
+  ubuntu_golang: "run"
+  ubuntu_golang_image: "clibing/ubuntu-golang"
 
 jobs:
   docker:
@@ -246,7 +249,18 @@ jobs:
             JENKINS_VERSION=2.414.3
             MAVEN_VERSION=3.9.5
             JDK_MAJOR=17
-
+      -
+        name: Build and push ubuntu golang latest
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.ubuntu_golang == 'run' }}
+        with:
+          context: ubuntu-golang
+          platforms: ${{ env.platforms_ignore_v6_v7 }}
+          file: ./ubuntu-golang/Dockerfile
+          push: true
+          tags: ${{ env.ubuntu_golang_image }}:1.21
+          build-args: |
+            VERSION=1.21
 
 
 
