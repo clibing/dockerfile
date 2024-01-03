@@ -36,7 +36,7 @@ env:
   alpine_nexus3_jdk_version: "8"
   alpine_nexus3_version: "3.61.0-02"
 
-  alpine_frp: "skip"
+  alpine_frp: "run"
   alpine_frp_image: "clibing/alpine-frp"
 
   debian: "skip"
@@ -48,7 +48,7 @@ env:
   ubuntu_jenkins: "skip"
   ubuntu_jenkins_image: "clibing/ubuntu-jenkins"
 
-  ubuntu_golang: "run"
+  ubuntu_golang: "skip"
   ubuntu_golang_image: "clibing/ubuntu-golang"
 
 jobs:
@@ -175,7 +175,7 @@ jobs:
             JDK_VERSION=${{ env.alpine_nexus3_jdk_version }}
             NEXUS_VERSION=${{ env.alpine_nexus3_version }}
       -
-        name: Build and push alpine frp client v 0.48.0
+        name: Build and push alpine frp client v 0.53.2
         uses: docker/build-push-action@v3
         if: ${{ env.all == 'run' || env.alpine_frp == 'run' }}
         with:
@@ -183,11 +183,11 @@ jobs:
           platforms: ${{ env.platforms }}
           file: ./alpine-frp/Dockerfile.frpc
           push: true
-          tags: ${{ env.alpine_frp_image }}:client-0.48.0
+          tags: ${{ env.alpine_frp_image }}:client-0.53.2
           build-args: |
-            RELEASE=0.48.0
+            RELEASE=0.53.2
       -
-        name: Build and push alpine frp server v 0.48.0
+        name: Build and push alpine frp server v 0.53.2
         uses: docker/build-push-action@v3
         if: ${{ env.all == 'run' || env.alpine_frp == 'run' }}
         with:
@@ -195,9 +195,9 @@ jobs:
           platforms: ${{ env.platforms }}
           file: ./alpine-frp/Dockerfile.frps
           push: true
-          tags: ${{ env.alpine_frp_image }}:server-0.48.0
+          tags: ${{ env.alpine_frp_image }}:server-0.53.2
           build-args: |
-            RELEASE=0.48.0
+            RELEASE=0.53.2
       -
         name: Build and push debian 11-slim
         uses: docker/build-push-action@v3
