@@ -12,9 +12,9 @@ LABEL maintainer="clibing <wmsjhappy@gmail.com>"
 
 COPY --from=build /building/bin/frps /bin/frps
 
-COPY --from=build /building/conf/frps.ini /etc/frps.ini
+COPY --from=build /building/conf/frps.toml /etc/frps.toml
 
-COPY --from=build /building/conf/frps_full.ini /etc/frps_full.ini
+COPY --from=build /building/conf/frps_full_example.toml /etc/frps_full_example.toml
 
 CMD ["/bin/frps", "-c", "/etc/frps.ini"]
 

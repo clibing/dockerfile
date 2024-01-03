@@ -13,9 +13,9 @@ LABEL maintainer="clibing <wmsjhappy@gmail.com>"
 
 COPY --from=build /building/bin/frpc /bin/frpc
 
-COPY --from=build /building/conf/frpc.ini /etc/frpc.ini
+COPY --from=build /building/conf/frpc.toml /etc/frpc.toml
 
-COPY --from=build /building/conf/frpc_full.ini /etc/frpc_full.ini
+COPY --from=build /building/conf/frpc_full_example.toml /etc/frpc_full_example.toml
 
 CMD ["/bin/frpc", "-c", "/etc/frpc.ini"]
 
