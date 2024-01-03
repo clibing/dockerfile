@@ -1,20 +1,20 @@
-FROM --platform=$BUILDPLATFORM clibing/alpine-build AS build
+FROM golang:1.20 AS build
 
-ARG RELEASE=0.48.0
+ARG RELEASE=0.53.2
 
-RUN git clone -b v${RELEASE} https://github.com/fatedier/frp.git /root/go/src/github.com/fatedier/frp \
-        && cd /root/go/src/github.com/fatedier/frp \
+RUN git clone -b v${RELEASE} https://github.com/fatedier/frp.git /building \
+        && cd /building \
         && make frps
 
 FROM clibing/alpine
 
 LABEL maintainer="clibing <wmsjhappy@gmail.com>"
 
-COPY --from=build /root/go/src/github.com/fatedier/frp/bin/frps /bin/frps
+COPY --from=build /building/bin/frps /bin/frps
 
-COPY --from=build /root/go/src/github.com/fatedier/frp/conf/frps.ini /etc/frps.ini
+COPY --from=build /building/conf/frps.ini /etc/frps.ini
 
-COPY --from=build /root/go/src/github.com/fatedier/frp/conf/frps_full.ini /etc/frps_full.ini
+COPY --from=build /building/conf/frps_full.ini /etc/frps_full.ini
 
 CMD ["/bin/frps", "-c", "/etc/frps.ini"]
 
