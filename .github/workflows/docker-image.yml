@@ -36,7 +36,7 @@ env:
   alpine_nexus3_jdk_version: "8"
   alpine_nexus3_version: "3.61.0-02"
 
-  alpine_frp: "run"
+  alpine_frp: "skip"
   alpine_frp_image: "clibing/alpine-frp"
 
   debian: "skip"
@@ -50,6 +50,9 @@ env:
 
   ubuntu_golang: "skip"
   ubuntu_golang_image: "clibing/ubuntu-golang"
+
+  alpine_fastdfs: "run"
+  alpine_fastdfs_image: "clibing/alpine-fastdfs"
 
 jobs:
   docker:
@@ -261,6 +264,22 @@ jobs:
           tags: ${{ env.ubuntu_golang_image }}:1.21.5
           build-args: |
             VERSION=1.21.5
+      -
+        name: Build and push alpine fastdfs latest
+        uses: docker/build-push-action@v3
+        if: ${{ env.all == 'run' || env.alpine_fastdfs == 'run' }}
+        with:
+          context: alpine-fastdfs
+          platforms: ${{ env.platforms_ignore_v6_v7 }}
+          file: ./alpine-fastdfs/Dockerfile
+          push: true
+          tags: ${{ env.alpine_fastdfs_image }}:v6.11.0
+          build-args: |
+            VERSION=6.11.0
+            NGINX_VERSION=1.24.0
+            FASTDFS_NGX_MODULE=V1.24
+            FAST_DFS_VERSION=V6.11.0
+            LIBFASTCOMMON_VERSION=V1.0.71
 
 
 

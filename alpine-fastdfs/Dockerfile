@@ -26,7 +26,7 @@ RUN apk upgrade --update && apk add perl pcre openssl zlib \
     && curl -fSL ${FAST_DHT_DOWNLOAD_URL} -o /tmp/fastdht.zip \
     && echo "downlaod end."
 
-ADD db-${BERKELEY_DB_VERSION}.tar.gz /tmp/
+ADD https://upload.clibing.com/fastdfs/db-${BERKELEY_DB_VERSION}.tar.gz /tmp/
 
 RUN cd /tmp/db-${BERKELEY_DB_VERSION}/build_unix && ../dist/configure --prefix=/usr && make && make install
 
