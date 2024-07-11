@@ -1,4 +1,4 @@
 # project name and proejct dir is same
 export PROJECT_NAME="ubuntu"
-export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
-export VERSION=22.04
+export IMAGE_BASE_NAME="${ENABLE_HUB_CUSTOM}clibing/${PROJECT_NAME}"
+export VERSION=24.04

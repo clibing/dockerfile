@@ -13,15 +13,17 @@ unset IMAGE_BASE_NAME
 
 source ./version
 
+export ENABLE_HUB_CUSTOM=hub.linuxcrypt.cn:5000
+
 echo "begin build base ubuntu."
 # docker buildx build --no-cahce --platform=${TARGET_PLATFORM_v7} \
-docker buildx build --platform=${TARGET_PLATFORM_v7} \
+docker buildx build --platform=${TARGET_PLATFORM_v8} \
     -t ${IMAGE_BASE_NAME}:${VERSION} \
     --build-arg UBUNTU_VERSION=${VERSION} \
     --push -f Dockerfile .
 
 # docker buildx build --no-cache --platform=${TARGET_PLATFORM_v7} \
-docker buildx build  --platform=${TARGET_PLATFORM_v7} \
+docker buildx build  --platform=${TARGET_PLATFORM_v8} \
     --build-arg UBUNTU_VERSION=${VERSION} \
     -t ${IMAGE_BASE_NAME}:latest  \
     --push -f Dockerfile .
