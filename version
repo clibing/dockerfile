@@ -1,6 +1,7 @@
-export ALPINE_VERSION=3.18
+export ALPINE_VERSION=3.20
+export TARGET_PLATFORM_ALL="linux/riscv64,linux/s390x,linux/386,linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6"
 export TARGET_PLATFORM="linux/amd64,linux/arm64/v8,linux/arm/v7,linux/arm/v6"
 export TARGET_PLATFORM_v7="linux/amd64,linux/arm64/v8,linux/arm/v7"
 export TARGET_PLATFORM_v8="linux/amd64,linux/arm64/v8"
 export MAVEN_VERSION=3.9.5
-
+export CUSTOM_PREFIX="hub.linuxcrypt.cn:5000/"
