@@ -1,0 +1,3 @@
+ARG VERSION="1.24"
+
+FROM golang:${VERSION}

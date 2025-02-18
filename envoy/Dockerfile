@@ -1,0 +1,3 @@
+ARG ENVOY_VERSION="v1.31.5"
+
+FROM envoyproxy/envoy:${ENVOY_VERSION}

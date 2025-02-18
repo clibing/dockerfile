@@ -1,0 +1,4 @@
+# project name and proejct dir is same
+export PROJECT_NAME="envoy"
+export IMAGE_BASE_NAME="clibing/${PROJECT_NAME}"
+export ENVOY_VERSION="v1.31.5"
