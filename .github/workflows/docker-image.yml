@@ -51,7 +51,7 @@ env:
   ubuntu_golang: "skip"
   ubuntu_golang_image: "clibing/ubuntu-golang"
 
-  alpine_fastdfs: "run"
+  alpine_fastdfs: "skip"
   alpine_fastdfs_image: "clibing/alpine-fastdfs"
 
 jobs:
