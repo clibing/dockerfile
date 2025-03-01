@@ -1,0 +1,5 @@
+# project name and proejct dir is same
+export NGX_VERSION="1.27.4-alpine"
+export PROJECT_NAME="nginx"
+export IMAGE_BASE_NAME="${ENABLE_HUB_CUSTOM}clibing/${PROJECT_NAME}"
+
